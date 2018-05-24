@@ -1,14 +1,12 @@
 package Vistas;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Controlador.Controlador;
 import Modelo.Modelo;
+import Controlador.Controlador;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -30,8 +28,10 @@ public class Inicio extends JFrame {
 	public Object dataSource;
 	public static JTextField txtuser;
 	public static JPasswordField pwdf;
+	private JButton btnRegistrarse;
 
 	public Inicio() {
+		this.setTitle("Inicio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -44,23 +44,13 @@ public class Inicio extends JFrame {
 		lblInicio.setBounds(172, 11, 95, 44);
 		contentPane.add(lblInicio);
 
-		btnBoton = new JButton("Logeate");
-
-		btnBoton.setBounds(172, 173, 89, 23);
+		btnBoton = new JButton("Login");
+		btnBoton.setBounds(233, 172, 89, 23);
 		contentPane.add(btnBoton);
 		btnBoton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (txtuser.getText().equals("Pedro"))
-					controlador.validarLogTutor();
-				else if (txtuser.getText().equals("Ana"))
-					controlador.validarLogDirectora();
-				else if (txtuser.getText().equals("admin"))
-					System.out.println("En la proxima versión se añadira el rol de admin");
-				else
-					controlador.cerrado();
-
-			}
-		});
+					controlador.validarLogin();
+			}});
 		txtuser = new JTextField();
 		txtuser.setBounds(148, 66, 130, 26);
 		contentPane.add(txtuser);
@@ -77,6 +67,15 @@ public class Inicio extends JFrame {
 		JLabel lblContrasea = new JLabel("CONTRASE\u00D1A");
 		lblContrasea.setBounds(53, 118, 82, 14);
 		contentPane.add(lblContrasea);
+		
+		btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controlador.abrirRegistro();
+			}
+		});
+		btnRegistrarse.setBounds(108, 172, 89, 23);
+		contentPane.add(btnRegistrarse);
 	}
 
 	public void setControlador(Controlador controlador) {

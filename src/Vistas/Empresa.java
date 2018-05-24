@@ -1,9 +1,10 @@
 package Vistas;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -33,6 +34,7 @@ public class Empresa extends JFrame {
 	private JButton btnVolver;
 
 	public Empresa() {
+		this.setTitle("Pestaña de Empresa");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 815, 484);
 		contentPane = new JPanel();
@@ -45,18 +47,11 @@ public class Empresa extends JFrame {
 		contentPane.add(scrollPane);
 
 		table = new JTable();
-		table.setModel(new DefaultTableModel(new Object[][] { { "Google", "059685", "Gaena", "26/05/18", "c/Ponzoña" },
-				{ "Accenture", "15489", "Villaconejo", "05/04/18", "c/Lago" },
-				{ "IBM", "363267", "Namibia", "26/02/18", "c/Mil Islas" }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null }, { null, null, null, null, null }, { null, null, null, null, null },
-				{ null, null, null, null, null },
-
-		}, new String[] { "Nombre", "Numero Convenio", "Localidad", "Fecha Firma", "Direccion" }));
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				table.setModel(miModelo.getTablaEmp());			}
+		});
 		scrollPane.setViewportView(table);
 
 		btnModificar = new JButton("Modificar");

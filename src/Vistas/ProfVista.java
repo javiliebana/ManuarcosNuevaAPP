@@ -14,6 +14,8 @@ import Modelo.Modelo;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -43,6 +45,7 @@ public class ProfVista extends JFrame {
 	private JRadioButton rdbtnVillaviciosa;
 
 	public ProfVista() {
+		this.setTitle("Pestaña de tutor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 735, 429);
 		contentPane = new JPanel();
@@ -55,17 +58,12 @@ public class ProfVista extends JFrame {
 		contentPane.add(scrollPane);
 
 		table = new JTable();
-		table.setModel(new DefaultTableModel(new Object[][] {
-				{ "DAM", "206", "Javier", "Liebana", "04769473", "Villaviciosa", "Pedro Camacho", null },
-				{ "DAM", "206", "Jorge", "Algo", "687463868", "Villaviciosa", "Pedro Camacho", "Google" },
-				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
-				{ null, null, null, null, null, null, null, null }, },
-				new String[] { "Ciclo", "Grupo", "Nombre", "Apellido", "N\u00BAAlumno", "Centro", "Tutor",
-						"Empresa" }));
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				table.setModel(miModelo.getTablaGen());
+			}
+		});
 		scrollPane.setViewportView(table);
 
 		lblNombretutor = new JLabel("Tutor");

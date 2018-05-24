@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GestionTabla extends JFrame {
 	private Modelo miModelo;
@@ -26,6 +28,7 @@ public class GestionTabla extends JFrame {
 	private JButton btnVolver;
 
 	public GestionTabla() {
+		this.setTitle("Pestaña de Modificación");
 		getContentPane().setLayout(null);
 
 		scrollPane = new JScrollPane();
@@ -33,13 +36,12 @@ public class GestionTabla extends JFrame {
 		getContentPane().add(scrollPane);
 
 		table = new JTable();
-		Modelo = new DefaultTableModel(
-				new Object[][] {
-						{ "Pedro1", "Camacho", "123456789", "111111111", "1111111111", "1111111111", "1111111111" },
-						{ "Pedro2", "Camacho", "123456789", "111111111", "1111111111", "1111111111", "1111111111" },
-						{ "Pedro3", "Camacho", "123456789", "111111111", "1111111111", "1111111111", "1111111111" }, },
-				new String[] { "Nombre", "Apellido", "numero alumno", "ciclo", "grupo", "empresa", "centro" });
-		table.setModel(Modelo);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				table.setModel(miModelo.getTablaGen());
+			}
+		});
 		scrollPane.setViewportView(table);
 
 		btnModificar = new JButton("Modificar");

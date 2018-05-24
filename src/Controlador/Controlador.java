@@ -1,22 +1,23 @@
 package Controlador;
-
 import javax.swing.JOptionPane;
 
-import Modelo.ConexionOracle;
+import Modelo.Modelo;
 import Vistas.DirInicio;
 import Vistas.Empresa;
 import Vistas.GestionTabla;
 import Vistas.Inicio;
 import Vistas.ProfVista;
+import Vistas.registro;
 
 //cambio de repositorio
 public class Controlador {
+	private Modelo miModelo;
 	private DirInicio vDirector;
 	private Empresa vEmpresa;
 	private GestionTabla Modificar;
 	private ProfVista vProfesor;
 	private Inicio vInicio;
-	public ConexionOracle conexion;
+	private registro vRegistro2;
 	public int contador = 0;
 
 	public void setDirInicio(DirInicio vDirector) {
@@ -40,7 +41,15 @@ public class Controlador {
 	public void setInicio(Inicio vProfesor) {
 		this.vInicio = vProfesor;
 	}
+	
 
+	public void setModelo(Modelo miModelo) {
+		this.miModelo = miModelo;
+	}
+	public void setregistro(registro vRegistro2) {
+		this.vRegistro2 = vRegistro2;
+	}
+	
 	public void abrirDirector() {
 		vInicio.setVisible(false);
 		vDirector.setVisible(true);
@@ -70,31 +79,38 @@ public class Controlador {
 		vEmpresa.setVisible(false);
 		vProfesor.setVisible(true);
 	}
+	
+	public void abrirRegistro() {
+		vInicio.setVisible(false);
+		vRegistro2.setVisible(true);
+	}
 
-	public void validarLogDirectora() {
+	public void cerrarRegistro() {
+		vRegistro2.setVisible(false);
+		vInicio.setVisible(true);
+	}
+	public void validarLogin() {
 		// conexion.datosLogin(Inicio.txtuser.getText()
 		// String.valueOf(Inicio.pwdf.getPassword()))
 
-		if (conexion.datosLogin(Inicio.txtuser.getText(), String.valueOf(Inicio.pwdf.getPassword()))) {
+		if (miModelo.datosLogin(Inicio.txtuser.getText(), String.valueOf(Inicio.pwdf.getPassword()))==1) {
 			abrirDirector();
-		} else {
-			cerrado();
 		}
-
-	}
-
-	public void validarLogTutor() {
-
-		if (conexion.datosLogin(Inicio.txtuser.getText(), String.valueOf(Inicio.pwdf.getPassword()))) {
+			else if (miModelo.datosLogin(Inicio.txtuser.getText(), String.valueOf(Inicio.pwdf.getPassword()))==2) {
 			abrirProfesor();
-		} else {
+		}
+			else if (miModelo.datosLogin(Inicio.txtuser.getText(), String.valueOf(Inicio.pwdf.getPassword()))==3) {
+				abrirProfesor();
+			}else {
 			cerrado();
 		}
 
 	}
 
-	public void setConexionOracle(ConexionOracle prueba) {
-		this.conexion = prueba;
+
+
+	public void setConexionOracle(Modelo miModelo) {
+		this.miModelo = miModelo;
 
 	}
 
@@ -106,4 +122,7 @@ public class Controlador {
 			System.exit(0);
 		}
 	}
+
+
 }
+

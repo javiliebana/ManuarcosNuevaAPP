@@ -1,17 +1,18 @@
 package Main;
 
 import Controlador.Controlador;
-import Modelo.ConexionOracle;
 import Modelo.Modelo;
 import Vistas.DirInicio;
 import Vistas.Empresa;
 import Vistas.GestionTabla;
 import Vistas.Inicio;
 import Vistas.ProfVista;
+import Vistas.registro;
 
 public class Test {
 
 	public static void main(String[] args) {
+		//Objetos 
 		Inicio vInicio = new Inicio();
 		Empresa vEmpresa = new Empresa();
 		DirInicio vDirector = new DirInicio();
@@ -19,37 +20,41 @@ public class Test {
 		ProfVista vProfesor = new ProfVista();
 		Controlador controlador = new Controlador();
 		Modelo miModelo = new Modelo();
-		ConexionOracle Login = new ConexionOracle();
-		Login.datosLogin("Pedro", "tutorwe");
-		Login.datosLogin("Ana", "directora");
-		Login.datosLogin("admin", "admin");
+		registro vRegistro = new registro();
+	
+		//Modelo
 		miModelo.setDirInicio(vDirector);
 		miModelo.setInicio(vInicio);
 		miModelo.setEmpresa(vEmpresa);
 		miModelo.setGestion(Modificar);
 		miModelo.setProfVista(vProfesor);
-		miModelo.setConexionOracle(Login);
+		miModelo.setControlador(controlador);
+		miModelo.setRegistro(vRegistro);
 
+		//Controlador
 		controlador.setDirInicio(vDirector);
 		controlador.setEmpresa(vEmpresa);
 		controlador.setGestionTabla(Modificar);
 		controlador.setProfVista(vProfesor);
 		controlador.setInicio(vInicio);
-		controlador.setConexionOracle(Login);
-
+		controlador.setModelo(miModelo);
+		controlador.setregistro(vRegistro);
+		
+		//vistas modelo
 		vDirector.setModelo(miModelo);
 		vEmpresa.setModelo(miModelo);
 		Modificar.setModelo(miModelo);
 		vProfesor.setModelo(miModelo);
 		vInicio.setModelo(miModelo);
-		Login.setModelo(miModelo);
-
+		vRegistro.setModelo(miModelo);
+		
+		//vistas controlador
 		vDirector.setControlador(controlador);
 		vEmpresa.setControlador(controlador);
 		Modificar.setControlador(controlador);
 		vProfesor.setControlador(controlador);
 		vInicio.setControlador(controlador);
-		Login.setControlador(controlador);
+		vRegistro.setControlador(controlador);
 
 		vInicio.setVisible(true);
 
